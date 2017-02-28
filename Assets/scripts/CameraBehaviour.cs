@@ -40,7 +40,7 @@ public class CameraBehaviour : MonoBehaviour {
                         rate = -rate;
                         camera.transform.position = vector;
                     }
-                    else if(!GameObject.Find("Organ1").GetComponent<BodyBehaviour>().zoom_organ && !GameObject.Find("Organ2").GetComponent<BodyBehaviour>().zoom_organ)
+                    else if(GameObject.Find("Organ1").GetComponent<BodyBehaviour>().zoom_organ==0 && GameObject.Find("Organ2").GetComponent<BodyBehaviour>().zoom_organ==0)
                     {
                         vector = new Vector3(camera.transform.position.x, camera.transform.position.y, camera.transform.position.z+rate);
                         zoom_objet = !zoom_objet;
