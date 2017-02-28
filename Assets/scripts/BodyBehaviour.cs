@@ -9,15 +9,14 @@ public class BodyBehaviour : MonoBehaviour {
     new Camera camera;
     GameObject OrganCamera;
     new Transform organcam;
-    public bool zoom_organ;
-    public int rate;
+    public int zoom_organ=0;
+    public float rate = 1.5f;
     Vector3 vector;
     float x_base_camera;
     float y_base_camera;
 
     // Use this for initialization
     void Start () {
-        zoom_organ = false;
         MainCamera = GameObject.Find("Main Camera");
         camera = MainCamera.GetComponent<Camera>();
         x_base_camera = camera.transform.position.x;
@@ -36,30 +35,33 @@ public class BodyBehaviour : MonoBehaviour {
 
                 if (Physics.Raycast(ray, out hit, 100))
                 {
-                    if (hit.collider.tag == "Organ1")
+                    if (hit.collider.tag == "Organ1" && zoom_organ==0)
                     {
                         OrganCamera = GameObject.Find("Organ1");
                         organcam = OrganCamera.transform;
-                        vector = new Vector3(organcam.position.x, organcam.position.y, camera.transform.localPosition.z + rate);
-                        camera.transform.localPosition = vector;
-                        zoom_organ = !zoom_organ;
+                        vector = new Vector3(organcam.position.x, organcam.position.y, MainCamera.transform.position.z + rate);
+                        MainCamera.transform.position = vector;
+                        zoom_organ = 1;
                         rate = -rate;
-                    }else if(hit.collider.tag == "Organ2")
+                    }else if(hit.collider.tag == "Organ2" && zoom_organ==0)
                     {
                             OrganCamera = GameObject.Find("Organ2");
                             organcam = OrganCamera.transform;
-                            vector = new Vector3(organcam.position.x, organcam.position.y, camera.transform.localPosition.z + rate);
-                            camera.transform.localPosition = vector;
-                            zoom_organ = !zoom_organ;
+                        Debug.Log(organcam.localPosition.x + " " + organcam.localPosition.y);
+                            vector = new Vector3(organcam.position.x, organcam.position.y, MainCamera.transform.position.z + rate);
+                            MainCamera.transform.position = vector;
+                            zoom_organ = 1;
                             rate = -rate;
-                        
                     }
-                    else if(hit.collider.tag == "body" && zoom_organ)
+                    else if(hit.collider.tag == "body" && zoom_organ==1)
                     {
                         vector = new Vector3(x_base_camera, y_base_camera, camera.transform.position.z + rate);
                         camera.transform.position = vector;
-                        zoom_organ = !zoom_organ;
+                        zoom_organ = 2;
                         rate = -rate;
+                    }else if(hit.collider.tag =="body" && zoom_organ == 2)
+                    {
+                        zoom_organ = 0;
                     }
                 }
             }
