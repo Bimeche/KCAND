@@ -7,22 +7,27 @@ public class BodyBehaviour : MonoBehaviour {
 
     GameObject MainCamera;
     new Camera camera;
-    bool zoom_organ = false;
-    float x_change;
-    float y_change;
-    float z_change;
+    GameObject OrganCamera;
+    new Transform organcam;
+    public bool zoom_organ;
+    public int rate;
+    Vector3 vector;
+    float x_base_camera;
+    float y_base_camera;
 
     // Use this for initialization
     void Start () {
+        zoom_organ = false;
         MainCamera = GameObject.Find("Main Camera");
         camera = MainCamera.GetComponent<Camera>();
+        x_base_camera = camera.transform.position.x;
+        y_base_camera = camera.transform.position.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (camera.GetComponent<CameraBehaviour>().zoom_position && !zoom_organ)
+        if (camera.GetComponent<CameraBehaviour>().zoom_objet)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -31,40 +36,33 @@ public class BodyBehaviour : MonoBehaviour {
 
                 if (Physics.Raycast(ray, out hit, 100))
                 {
-                    if (hit.collider.tag == "organ1")
+                    if (hit.collider.tag == "Organ1")
                     {
-                        x_change = 0.5f;
-                        y_change = -1.2f;
-                        z_change = 3.3f;
-                        camera.transform.localPosition = new Vector3(camera.transform.localPosition.x, camera.transform.localPosition.y + y_change, camera.transform.localPosition.z + z_change);
-                    }else if(hit.collider.tag == "organ2")
+                        OrganCamera = GameObject.Find("Organ1");
+                        organcam = OrganCamera.transform;
+                        vector = new Vector3(organcam.position.x, organcam.position.y, camera.transform.localPosition.z + rate);
+                        camera.transform.localPosition = vector;
+                        zoom_organ = !zoom_organ;
+                        rate = -rate;
+                    }else if(hit.collider.tag == "Organ2")
                     {
-                        x_change = 0.5f;
-                        y_change = -1.2f;
-                        z_change = 2.9f;
-                        camera.transform.localPosition = new Vector3(camera.transform.localPosition.x, camera.transform.localPosition.y + y_change, camera.transform.localPosition.z + z_change);
+                            OrganCamera = GameObject.Find("Organ2");
+                            organcam = OrganCamera.transform;
+                            vector = new Vector3(organcam.position.x, organcam.position.y, camera.transform.localPosition.z + rate);
+                            camera.transform.localPosition = vector;
+                            zoom_organ = !zoom_organ;
+                            rate = -rate;
+                        
                     }
-                }
-                //racemanager = GameObject.Find("Racemanager").GetComponent<RaceManager>();
-                else if (camera.GetComponent<CameraBehaviour>().zoom_position && zoom_organ)
-                {
-                    if (Input.GetMouseButtonDown(0))
+                    else if(hit.collider.tag == "body" && zoom_organ)
                     {
-                        ray = camera.ScreenPointToRay(Input.mousePosition);
-
-                        if (Physics.Raycast(ray, out hit, 100))
-                        {
-                            if (hit.collider.tag == "body")
-                            {
-                                x_change = -x_change;
-                                y_change = -y_change;
-                                z_change = -z_change;
-                                camera.transform.localPosition = new Vector3(camera.transform.localPosition.x, camera.transform.localPosition.y + y_change, camera.transform.localPosition.z + z_change);
-                            }
-                        }
+                        vector = new Vector3(x_base_camera, y_base_camera, camera.transform.position.z + rate);
+                        camera.transform.position = vector;
+                        zoom_organ = !zoom_organ;
+                        rate = -rate;
                     }
                 }
             }
         }
-    }
+    }  
 }
