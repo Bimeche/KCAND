@@ -45,8 +45,8 @@ public class BodyBehaviour : MonoBehaviour {
                         OrganCamera = GameObject.Find("Organ1");
                         organcam = OrganCamera.transform;
                         vector = new Vector3(organcam.position.x, organcam.position.y, MainCamera.transform.position.z + rate);
-                        MainCamera.transform.position = vector;
-                        rate = -rate;
+						MainCamera.transform.position = vector;
+						rate = -rate;
                         Debug.Log("fin ici 1 : " + zoom_organ);
                     }
                     else if (hit.collider.tag == "Organ2" && zoom_organ != 1)
@@ -55,8 +55,8 @@ public class BodyBehaviour : MonoBehaviour {
                         OrganCamera = GameObject.Find("Organ2");
                         organcam = OrganCamera.transform;
                         vector = new Vector3(organcam.position.x, organcam.position.y, MainCamera.transform.position.z + rate);
-                        MainCamera.transform.position = vector;
-                        zoom_organ = 1;
+						MainCamera.transform.position = vector;
+						zoom_organ = 1;
                         rate = -rate;
                     }
                     else if (hit.collider.tag == "body" && zoom_organ == 1)
