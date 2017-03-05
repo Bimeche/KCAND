@@ -6,11 +6,13 @@ public class CameraZoom : MonoBehaviour
 {
 	private int zoom = 10;
 	private int normal = 60;
-	public Transform target;
+	private Transform target;
 	private Vector3 initialPosition;
 	private float smooth = 5;
 	private float smoothPos = 0.1f;
 	private bool isZooming = false;
+	private bool isZoomed = false;
+	private int whichOrganZoomed = 0;
 
 	private void Start()
 	{
@@ -26,19 +28,35 @@ public class CameraZoom : MonoBehaviour
 
 			if (Physics.Raycast(ray, out hit, 100))
 			{
-				if (hit.collider.tag == "Organ2" && !V3Equal(GetComponent<Camera>().transform.position, target.position))
+				if (hit.collider.tag == "Organ1" && whichOrganZoomed!=1)
 				{
 					isZooming = true;
+					whichOrganZoomed = 1;
+					target = GameObject.Find("ZoomPointOrgan1").transform;
 				}
-				else if(V3Equal(GetComponent<Camera>().transform.position, target.position))
+				else
 				{
-					isZooming = false;
+					if (hit.collider.tag == "Organ2" && whichOrganZoomed != 1)
+					{
+						isZooming = true;
+						whichOrganZoomed = 2;
+						target = GameObject.Find("ZoomPointOrgan2").transform;
+					}
+					else
+					{
+						if (hit.collider.tag == "body" && whichOrganZoomed != 0)
+						{
+							isZooming = false;
+							whichOrganZoomed = 0;
+						}
+					}
 				}
+
 			}
 
 			
 		}
-		if (isZooming)
+		if (isZooming && whichOrganZoomed != 0)
 		{
 			transform.position = Vector3.Lerp(GetComponent<Camera>().transform.position, target.position, 0.2f);
 			//GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, zoom, Time.deltaTime * smooth);
