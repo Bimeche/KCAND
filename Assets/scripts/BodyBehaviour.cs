@@ -6,6 +6,7 @@ public class BodyBehaviour : MonoBehaviour {
 
 
     GameObject MainCamera;
+    GameObject squelette;
     new Camera camera;
     GameObject OrganCamera;
     new Transform organcam;
@@ -15,7 +16,7 @@ public class BodyBehaviour : MonoBehaviour {
     Vector3 vector;
     Quaternion quat;
     float x_base_camera;
-    float y_base_camera;
+    float z_base_camera;
     public float rotx = -90;
 
     // Use this for initialization
@@ -23,7 +24,7 @@ public class BodyBehaviour : MonoBehaviour {
         MainCamera = GameObject.Find("Main Camera");
         camera = MainCamera.GetComponent<Camera>();
         x_base_camera = camera.transform.position.x;
-        y_base_camera = camera.transform.position.y;
+        z_base_camera = camera.transform.position.z;
     }
 
     // Update is called once per frame
@@ -40,16 +41,16 @@ public class BodyBehaviour : MonoBehaviour {
                 {
                     if (hit.collider.tag == "Organ1" && zoom_organ != 1)
                     {
-                        Debug.Log("ici 1 : " + zoom_organ);
                         zoom_organ = 1;
-                        OrganCamera = GameObject.Find("Organ1");
+                        squelette =GameObject.Find("Skeleton_Cube");
+                        squelette.SetActive(false);
+                        OrganCamera = GameObject.Find("Heart");
                         organcam = OrganCamera.transform;
-                        vector = new Vector3(organcam.position.x, organcam.position.y, MainCamera.transform.position.z + rate);
+                        vector = new Vector3(organcam.position.x,MainCamera.transform.position.y - rate, organcam.position.z);
                         MainCamera.transform.position = vector;
                         rate = -rate;
-                        Debug.Log("fin ici 1 : " + zoom_organ);
                     }
-                    else if (hit.collider.tag == "Organ2" && zoom_organ != 1)
+                    /*else if (hit.collider.tag == "Organ2" && zoom_organ != 1)
                     {
                         Debug.Log("ici 2");
                         OrganCamera = GameObject.Find("Organ2");
@@ -58,11 +59,11 @@ public class BodyBehaviour : MonoBehaviour {
                         MainCamera.transform.position = vector;
                         zoom_organ = 1;
                         rate = -rate;
-                    }
+                    }*/
                     else if (hit.collider.tag == "body" && zoom_organ == 1)
                     {
                         Debug.Log("ici 3");
-                        vector = new Vector3(x_base_camera, y_base_camera, camera.transform.position.z + rate);
+                        vector = new Vector3(x_base_camera, camera.transform.position.y - rate, z_base_camera );
                         camera.transform.position = vector;
                         zoom_organ = 2;
                         rate = -rate;
@@ -88,7 +89,7 @@ public class BodyBehaviour : MonoBehaviour {
                     {
                         OrganCamera = GameObject.Find("sheet");
                         organcam = OrganCamera.transform;
-                        vector = new Vector3(organcam.position.x, organcam.position.y, MainCamera.transform.position.z + 0.6f);
+                        vector = new Vector3(organcam.position.x,MainCamera.transform.position.y - 0.6f, organcam.position.z);
                         MainCamera.transform.position = vector;
                         quat = Quaternion.Euler(rotx,0,0);
                         organcam.transform.rotation = quat;
@@ -96,7 +97,7 @@ public class BodyBehaviour : MonoBehaviour {
                     }
                     else if (hit.collider.tag == "sheet" && zoom_sheet)
                     {
-                        vector = new Vector3(x_base_camera, y_base_camera, camera.transform.position.z-0.6f);
+                        vector = new Vector3(x_base_camera, camera.transform.position.z + 0.6f, z_base_camera);
                         camera.transform.position = vector;
                         quat = Quaternion.Euler(0,0,0);
                         organcam.transform.rotation = quat;
