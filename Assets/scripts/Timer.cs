@@ -11,8 +11,12 @@ public class Timer : MonoBehaviour {
     public Text timedisplay;
     float minutes;
     float secondes;
-	// Use this for initialization
-	void Start () {
+    public SoundManager sm;
+    int secondtmp;
+    public AudioSource bip;
+
+    // Use this for initialization
+    void Start () {
 
         secondes = timeLevel;
         while (secondes > 59)
@@ -20,7 +24,7 @@ public class Timer : MonoBehaviour {
             minutes++;
             secondes = secondes - 60;
         }
-
+        secondtmp = Mathf.FloorToInt(secondes);
         if (secondes < 10)
             timedisplay.text = minutes.ToString() + " : 0" + secondes.ToString("F0");
         else
@@ -30,8 +34,15 @@ public class Timer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+        Debug.Log(secondtmp);
         secondes -= Time.deltaTime;
+        if (secondtmp != Mathf.FloorToInt(secondes))
+        {
+            secondtmp = Mathf.FloorToInt(secondes);
+            sm.PlaySingle(bip.clip);
+            Debug.Log("test");
+
         if (secondes < 0)
         {
             secondes = 59;
@@ -47,6 +58,9 @@ public class Timer : MonoBehaviour {
         {
             TimeOver();
         }
+
+        }
+
 
 	}
 
