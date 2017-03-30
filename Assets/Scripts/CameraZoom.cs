@@ -14,6 +14,7 @@ public class CameraZoom : MonoBehaviour
 	private bool isZoomed = false;
 	private int whichOrganZoomed = 0;
     public AudioSource battement;
+	public HeartScript heart;
     
 
     private void Start()
@@ -31,10 +32,11 @@ public class CameraZoom : MonoBehaviour
 
 			if (Physics.Raycast(ray, out hit, 1000))
 			{
-				if (hit.collider.tag == "Organ1")
+				if (hit.collider.tag == "Heart")
 				{
-                    Debug.Log("Organ1");
+                    Debug.Log("Heart");
 					isZooming = true;
+					heart.isZoomed = true;
 					whichOrganZoomed = 1;
                     target = GameObject.Find("ZoomPointOrgan1").transform;
 				}
@@ -49,7 +51,7 @@ public class CameraZoom : MonoBehaviour
 					}
 					else
 					{
-						if (hit.collider.tag != "Organ1" && hit.collider.tag != "sheet" && whichOrganZoomed != 0)
+						if (hit.collider.tag == "body" && whichOrganZoomed != 0)
                         {
                             Debug.Log("body");
                             isZooming = false;
@@ -80,15 +82,12 @@ public class CameraZoom : MonoBehaviour
         }
 		else
 		{
-            battement.Stop();
+			heart.isZoomed = false;
+			battement.Stop();
 			transform.position = Vector3.Lerp(transform.position, initialPosition, 0.2f);
 			//GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, normal, Time.deltaTime * smooth);
 		}
 	}
-
-	public bool V3Equal(Vector3 a, Vector3 b)
-	{
-		return Vector3.SqrMagnitude(a - b) < 0.1;
-	}
+	
 
 }

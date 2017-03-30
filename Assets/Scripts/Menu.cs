@@ -17,7 +17,7 @@ public class Menu : MonoBehaviour {
 
     public void ClickPlay()
     {
-        SceneManager.LoadScene("BaseScene");
+        SceneManager.LoadScene("SceneLeo");
     }
 
     public void ClickCredits()
