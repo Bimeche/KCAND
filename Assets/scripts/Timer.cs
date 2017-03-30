@@ -34,8 +34,7 @@ public class Timer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        Debug.Log(secondtmp);
+        
         secondes -= Time.deltaTime;
         if (secondtmp != Mathf.FloorToInt(secondes))
         {

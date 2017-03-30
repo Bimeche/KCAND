@@ -4,6 +4,7 @@ using UnityEngine;
 public class CameraBehaviour : MonoBehaviour {
 
     public float rate;
+    public float rate2= 0.2f;
     public bool zoom_objet;
     GameObject MainCamera;
     new Camera camera;
@@ -24,7 +25,8 @@ public class CameraBehaviour : MonoBehaviour {
 
             if(Physics.Raycast(ray, out hit, 5))
             {
-                if(hit.collider.tag == "body")
+                Debug.Log("la");
+                if (hit.collider.tag == "body")
                 {
                     /* if(!GameObject.Find("organ1").GetComponent<BodyBehaviour>().zoom_organ || !GameObject.Find("organ2").GetComponent<BodyBehaviour>().zoom_organ)
                      {
@@ -33,19 +35,23 @@ public class CameraBehaviour : MonoBehaviour {
                          z_change = -z_change;
                          camera.transform.localPosition = new Vector3(camera.transform.localPosition.x, camera.transform.localPosition.y + y_change, camera.transform.localPosition.z + z_change);
                      }*/
+                    Debug.Log("ici");
                     if (!zoom_objet)
                     {
-                        vector = new Vector3(camera.transform.position.x, camera.transform.position.y, camera.transform.position.z+rate);
+                        Debug.Log("prout");
+                        vector = new Vector3(camera.transform.position.x, camera.transform.position.y - rate, camera.transform.position.z + rate2);
                         zoom_objet = !zoom_objet;
                         rate = -rate;
+                        rate2 = -rate2;
                         camera.transform.position = vector;
                     }
                     else if(GameObject.Find("OrganManager").GetComponent<BodyBehaviour>().zoom_organ==0)
                     {
                         Debug.Log("ici 5");
-                        vector = new Vector3(camera.transform.position.x, camera.transform.position.y, camera.transform.position.z+rate);
+                        vector = new Vector3(camera.transform.position.x, camera.transform.position.y-rate, camera.transform.position.z+rate2);
                         zoom_objet = !zoom_objet;
                         rate = -rate;
+                        rate2 = -rate2;
                         camera.transform.position = vector;
                     }
                     

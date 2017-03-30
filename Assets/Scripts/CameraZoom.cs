@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraZoom : MonoBehaviour
 {
-	private int zoom = 10;
+	private int zoom =10;
 	private int normal = 60;
 	private Transform target;
 	private Vector3 initialPosition;
@@ -13,11 +13,14 @@ public class CameraZoom : MonoBehaviour
 	private bool isZooming = false;
 	private bool isZoomed = false;
 	private int whichOrganZoomed = 0;
+    public AudioSource battement;
+    
 
-	private void Start()
+    private void Start()
 	{
-		initialPosition = GetComponent<Camera>().transform.position;
-	}
+		initialPosition = transform.position;
+
+    }
 
 	private void Update()
 	{
@@ -26,29 +29,42 @@ public class CameraZoom : MonoBehaviour
 			var ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 
-			if (Physics.Raycast(ray, out hit, 100))
+			if (Physics.Raycast(ray, out hit, 1000))
 			{
-				if (hit.collider.tag == "Organ1" && whichOrganZoomed!=1)
+				if (hit.collider.tag == "Organ1")
 				{
+                    Debug.Log("Organ1");
 					isZooming = true;
 					whichOrganZoomed = 1;
-					target = GameObject.Find("ZoomPointOrgan1").transform;
+                    target = GameObject.Find("ZoomPointOrgan1").transform;
 				}
 				else
 				{
-					if (hit.collider.tag == "Organ2" && whichOrganZoomed != 1)
-					{
-						isZooming = true;
+					if (hit.collider.tag == "Organ2" && whichOrganZoomed != 2)
+                    {
+                        Debug.Log("Organ2");
+                        isZooming = true;
 						whichOrganZoomed = 2;
 						target = GameObject.Find("ZoomPointOrgan2").transform;
 					}
 					else
 					{
-						if (hit.collider.tag == "body" && whichOrganZoomed != 0)
-						{
-							isZooming = false;
+						if (hit.collider.tag != "Organ1" && hit.collider.tag != "sheet" && whichOrganZoomed != 0)
+                        {
+                            Debug.Log("body");
+                            isZooming = false;
 							whichOrganZoomed = 0;
-						}
+                        }else
+                        {
+                            Debug.Log("test sheet");
+                            if(hit.collider.tag == "sheet" && whichOrganZoomed != 3)
+                            {
+                                Debug.Log("sheet");
+                                isZooming = true;
+                                whichOrganZoomed = 3;
+                                target = GameObject.Find("ZoomPointSheet").transform;
+                            }
+                        }
 					}
 				}
 
@@ -58,12 +74,14 @@ public class CameraZoom : MonoBehaviour
 		}
 		if (isZooming && whichOrganZoomed != 0)
 		{
-			transform.position = Vector3.Lerp(GetComponent<Camera>().transform.position, target.position, 0.2f);
-			//GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, zoom, Time.deltaTime * smooth);
-		}
+            battement.Play();
+            transform.position = Vector3.Lerp(transform.position, target.position, 0.2f);
+            //GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, zoom, Time.deltaTime * smooth);
+        }
 		else
 		{
-			GetComponent<Camera>().transform.position = Vector3.Lerp(GetComponent<Camera>().transform.position, initialPosition, 0.2f);
+            battement.Stop();
+			transform.position = Vector3.Lerp(transform.position, initialPosition, 0.2f);
 			//GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, normal, Time.deltaTime * smooth);
 		}
 	}
