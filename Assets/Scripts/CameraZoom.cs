@@ -15,12 +15,15 @@ public class CameraZoom : MonoBehaviour
 	private int whichOrganZoomed = 0;
     public AudioSource battement;
 	public HeartScript heart;
-    
+    private GameObject button;
+
+
 
     private void Start()
 	{
 		initialPosition = transform.position;
-
+        button = GameObject.Find("button");
+        button.SetActive(false);
     }
 
 	private void Update()
@@ -47,6 +50,7 @@ public class CameraZoom : MonoBehaviour
                         Debug.Log("Organ2");
                         isZooming = true;
 						whichOrganZoomed = 2;
+                        button.SetActive(true);
 						target = GameObject.Find("ZoomPointOrgan2").transform;
 					}
 					else
@@ -55,7 +59,8 @@ public class CameraZoom : MonoBehaviour
                         {
                             Debug.Log("body");
                             isZooming = false;
-							whichOrganZoomed = 0;
+                            button.SetActive(false);
+                            whichOrganZoomed = 0;
                         }else
                         {
                             Debug.Log("test sheet");
