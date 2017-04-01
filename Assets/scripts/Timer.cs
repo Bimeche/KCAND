@@ -40,7 +40,6 @@ public class Timer : MonoBehaviour {
         {
             secondtmp = Mathf.FloorToInt(secondes);
             sm.PlaySingle(bip.clip);
-            Debug.Log("test");
 
         if (secondes < 0)
         {
@@ -65,7 +64,6 @@ public class Timer : MonoBehaviour {
 
     void TimeOver()
     {
-        Debug.Log("Finnish");
     }
 }
 

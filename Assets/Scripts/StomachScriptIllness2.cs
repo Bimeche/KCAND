@@ -74,7 +74,7 @@ public class StomachScriptIllness2 : MonoBehaviour {
                                         {
                                             for (int i = 0; i < timer.text.Length; i++)
                                             {
-                                                if (timer.text.Substring(i, 1) == GameObject.Find("sheet").GetComponent<FillSheet>().ligne1.text.Substring(1, 1)) good_timer = true;
+                                                if (timer.text.Substring(i, 1) == GameObject.Find("sheet").GetComponent<FillSheet>().ligne1.text.Substring(7)) good_timer = true;
                                             }
                                         }   
                                         if (good_timer)
