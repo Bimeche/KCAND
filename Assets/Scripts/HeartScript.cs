@@ -64,7 +64,7 @@ public class HeartScript : MonoBehaviour {
 		{
 			pillsSpawningList.Add(item);
 		}
-		sheet.FillDocument("age : " + age.ToString(), pulOed, breath);
+		sheet.FillDocument("age : " + age.ToString(), pulOed, breath, sheet.GetComponent<FillSheet>().ligne4.text);
 		pillsSpawned = new Hashtable();
 		numberOfPillsToSpawn = Random.Range(2, 5);
 		for (int i = 0; i < numberOfPillsToSpawn; i++)
@@ -231,8 +231,10 @@ public class HeartScript : MonoBehaviour {
 					else
 					{
 						Debug.Log("black errors");
-						errors++;
-					}
+                        if(GameObject.Find("Main Camera").GetComponent<strikeScript>().nbstrike > 0)
+                        GameObject.Find("Main Camera").GetComponent<strikeScript>().nbstrike--;
+                        else errors++;
+                    }
 					hit.collider.gameObject.SetActive(false);
 				}
 				else if (hit.collider.name.Contains("Red"))
@@ -245,8 +247,10 @@ public class HeartScript : MonoBehaviour {
 					else
 					{
 						Debug.Log("red errors");
-						errors++;
-					}
+                        if (GameObject.Find("Main Camera").GetComponent<strikeScript>().nbstrike > 0)
+                            GameObject.Find("Main Camera").GetComponent<strikeScript>().nbstrike--;
+                        else errors++;
+                    }
 					hit.collider.gameObject.SetActive(false);
 				}
 				else if (hit.collider.name.Contains("Green"))
@@ -259,8 +263,10 @@ public class HeartScript : MonoBehaviour {
 					else
 					{
 						Debug.Log("green errors");
-						errors++;
-					}
+                        if (GameObject.Find("Main Camera").GetComponent<strikeScript>().nbstrike > 0)
+                            GameObject.Find("Main Camera").GetComponent<strikeScript>().nbstrike--;
+                        else errors++;
+                    }
 					hit.collider.gameObject.SetActive(false);
 				}
 				else if (hit.collider.name.Contains("White"))
@@ -273,8 +279,10 @@ public class HeartScript : MonoBehaviour {
 					else
 					{
 						Debug.Log("white errors");
-						errors++;
-					}
+                        if (GameObject.Find("Main Camera").GetComponent<strikeScript>().nbstrike > 0)
+                            GameObject.Find("Main Camera").GetComponent<strikeScript>().nbstrike--;
+                        else errors++;
+                    }
 					hit.collider.gameObject.SetActive(false);
 				}
 
@@ -286,8 +294,8 @@ public class HeartScript : MonoBehaviour {
 			}
 			else if (pillsToClick.Count == 0)
 			{
-				SceneManager.LoadScene("Win");
-			}
+                GameObject.Find("Heart").SetActive(false);
+            }
 		}
 	}
 }
