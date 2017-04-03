@@ -9,7 +9,15 @@ public class Gastrite : MonoBehaviour {
 	public GameObject chocolat;
 	public GameObject pate;
     public TextMesh text;
-	private int actualCase;
+    public TextMesh L1;
+    public TextMesh L2;
+    public TextMesh L3;
+    public TextMesh L4;
+    public TextMesh L5;
+    public TextMesh L6;
+    public TextMesh L7;
+    public TextMesh L8;
+    private int actualCase;
     private int rand;
     private string word;
     private string written;
@@ -28,12 +36,37 @@ public class Gastrite : MonoBehaviour {
                 {
                     case 1:
                         word = "SEULE";
+                        L1.text = "S";
+                        L2.text = "E";
+                        L3.text = "U";
+                        L4.text = "L";
+                        L5.text = "E";
+                        L6.text = "B";
+                        L7.text = "I";
+                        L8.text = "V";
+
                         break;
                     case 2:
                         word = "CELIBAT";
+                        L1.text = "C";
+                        L2.text = "E";
+                        L3.text = "I";
+                        L4.text = "L";
+                        L5.text = "E";
+                        L6.text = "B";
+                        L7.text = "A";
+                        L8.text = "T";
                         break;
                     case 3:
                         word = "DIVORCE";
+                        L1.text = "O";
+                        L2.text = "E";
+                        L3.text = "R";
+                        L4.text = "C";
+                        L5.text = "D";
+                        L6.text = "B";
+                        L7.text = "I";
+                        L8.text = "V";
                         break;
                 }
               
@@ -46,12 +79,36 @@ public class Gastrite : MonoBehaviour {
                 {
                     case 1:
                         word = "SPORT";
+                        L1.text = "S";
+                        L2.text = "T";
+                        L3.text = "P";
+                        L4.text = "L";
+                        L5.text = "E";
+                        L6.text = "R";
+                        L7.text = "O";
+                        L8.text = "V";
                         break;
                     case 2:
                         word = "TOURNOI";
+                        L1.text = "S";
+                        L2.text = "O";
+                        L3.text = "N";
+                        L4.text = "R";
+                        L5.text = "U";
+                        L6.text = "O";
+                        L7.text = "I";
+                        L8.text = "T";
                         break;
                     case 3:
                         word = "COMPET";
+                        L1.text = "S";
+                        L2.text = "M";
+                        L3.text = "C";
+                        L4.text = "O";
+                        L5.text = "E";
+                        L6.text = "P";
+                        L7.text = "I";
+                        L8.text = "T";
                         break;
                 }
                 break;
@@ -63,12 +120,36 @@ public class Gastrite : MonoBehaviour {
                 {
                     case 1:
                         word = "CONTROLE";
+                        L1.text = "C";
+                        L2.text = "N";
+                        L3.text = "R";
+                        L4.text = "L";
+                        L5.text = "E";
+                        L6.text = "O";
+                        L7.text = "T";
+                        L8.text = "O";
                         break;
                     case 2:
                         word = "CONCOURS";
+                        L1.text = "C";
+                        L2.text = "O";
+                        L3.text = "N";
+                        L4.text = "C";
+                        L5.text = "R";
+                        L6.text = "U";
+                        L7.text = "O";
+                        L8.text = "C";
                         break;
                     case 3:
                         word = "REVISION";
+                        L1.text = "R";
+                        L2.text = "E";
+                        L3.text = "I";
+                        L4.text = "S";
+                        L5.text = "O";
+                        L6.text = "N";
+                        L7.text = "I";
+                        L8.text = "V";
                         break;
                 }
                 break;
@@ -80,12 +161,36 @@ public class Gastrite : MonoBehaviour {
                 {
                     case 1:
                         word = "HORREUR";
+                        L1.text = "H";
+                        L2.text = "O";
+                        L3.text = "U";
+                        L4.text = "R";
+                        L5.text = "E";
+                        L6.text = "R";
+                        L7.text = "I";
+                        L8.text = "R";
                         break;
                     case 2:
                         word = "PEUR";
+                        L1.text = "R";
+                        L2.text = "E";
+                        L3.text = "U";
+                        L4.text = "L";
+                        L5.text = "E";
+                        L6.text = "B";
+                        L7.text = "I";
+                        L8.text = "P";
                         break;
                     case 3:
                         word = "TENSION";
+                        L1.text = "S";
+                        L2.text = "E";
+                        L3.text = "T";
+                        L4.text = "N";
+                        L5.text = "O";
+                        L6.text = "B";
+                        L7.text = "I";
+                        L8.text = "N";
                         break;
                 }
                 break;
@@ -96,6 +201,7 @@ public class Gastrite : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+       
         foreach (KeyCode kcode in System.Enum.GetValues(typeof(KeyCode)))
         {
             if (Input.GetKeyDown(kcode))
