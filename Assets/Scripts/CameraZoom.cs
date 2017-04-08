@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraZoom : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class CameraZoom : MonoBehaviour
     public AudioSource battement;
 	public HeartScript heart;
     private GameObject button;
+    private int seeknessHeart;
 
 
 
@@ -24,6 +26,8 @@ public class CameraZoom : MonoBehaviour
 		initialPosition = transform.position;
         button = GameObject.Find("button");
         button.SetActive(false);
+        //seeknessHeart = Random.Range(0, 2);
+        seeknessHeart = 1;
     }
 
 	private void Update()
@@ -41,8 +45,14 @@ public class CameraZoom : MonoBehaviour
 					isZooming = true;
 					heart.isZoomed = true;
 					whichOrganZoomed = 1;
-                    target = GameObject.Find("ZoomPointOrgan1").transform;
-				}
+                    if (seeknessHeart == 0)
+                        target = GameObject.Find("ZoomPointOrgan1").transform;
+                    else
+                    {
+                        target = GameObject.Find("ZoomPointOrgan3").transform;
+                        GameObject.Find("CanvasSeringue").GetComponent<Canvas>().enabled = true;
+                    }
+                }
 				else
 				{
 					if (hit.collider.tag == "Organ2" && whichOrganZoomed != 2)
@@ -55,13 +65,15 @@ public class CameraZoom : MonoBehaviour
 					}
 					else
 					{
-						if (hit.collider.tag == "body" && whichOrganZoomed != 0)
+                            if (hit.collider.tag == "body" && whichOrganZoomed != 0)
                         {
                             Debug.Log("body");
                             isZooming = false;
                             button.SetActive(false);
                             whichOrganZoomed = 0;
-                        }else
+                            GameObject.Find("CanvasSeringue").GetComponent<Canvas>().enabled = false;
+                        }
+                        else
                         {
                             Debug.Log("test sheet");
                             if(hit.collider.tag == "sheet" && whichOrganZoomed != 3)
