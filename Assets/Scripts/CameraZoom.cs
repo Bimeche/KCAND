@@ -26,8 +26,7 @@ public class CameraZoom : MonoBehaviour
 		initialPosition = transform.position;
         button = GameObject.Find("button");
         button.SetActive(false);
-        //seeknessHeart = Random.Range(0, 2);
-        seeknessHeart = 1;
+        seeknessHeart = Random.Range(0, 2);
     }
 
 	private void Update()
