@@ -64,7 +64,7 @@ public class HeartScript : MonoBehaviour {
 		{
 			pillsSpawningList.Add(item);
 		}
-		sheet.FillDocument("age : " + age.ToString(), pulOed, breath, sheet.GetComponent<FillSheet>().ligne4.text);
+		sheet.FillDocument("age : " + age.ToString(), pulOed, breath, sheet.GetComponent<FillSheet>().ligne4.text, sheet.GetComponent<FillSheet>().ligne5.text);
 		pillsSpawned = new Hashtable();
 		numberOfPillsToSpawn = Random.Range(2, 5);
 		for (int i = 0; i < numberOfPillsToSpawn; i++)

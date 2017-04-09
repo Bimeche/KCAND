@@ -43,12 +43,12 @@ public class StomachScriptIllness2 : MonoBehaviour {
                 {
                     if (Random.Range(0, 2) == 0)
                     {
-                        sheet.FillDocument(sheet.GetComponent<FillSheet>().ligne1.text, sheet.GetComponent<FillSheet>().ligne2.text, sheet.GetComponent<FillSheet>().ligne3.text, "Boit beaucoup d'alcool.");
+                        sheet.FillDocument(sheet.GetComponent<FillSheet>().ligne1.text, sheet.GetComponent<FillSheet>().ligne2.text, sheet.GetComponent<FillSheet>().ligne3.text, "Boit beaucoup d'alcool.", sheet.GetComponent<FillSheet>().ligne5.text);
                     }
                     else
                     {
                         nb = Random.Range(2, 9);
-                        sheet.FillDocument(sheet.GetComponent<FillSheet>().ligne1.text, sheet.GetComponent<FillSheet>().ligne2.text, sheet.GetComponent<FillSheet>().ligne3.text, "A perdu "+ nb +" fois connaissances.");
+                        sheet.FillDocument(sheet.GetComponent<FillSheet>().ligne1.text, sheet.GetComponent<FillSheet>().ligne2.text, sheet.GetComponent<FillSheet>().ligne3.text, "A perdu "+ nb +" fois connaissances.", sheet.GetComponent<FillSheet>().ligne5.text);
                     }
                 }
                 break;
