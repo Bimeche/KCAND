@@ -39,7 +39,7 @@ public class Timer : MonoBehaviour {
         if (secondtmp != Mathf.FloorToInt(secondes))
         {
             secondtmp = Mathf.FloorToInt(secondes);
-            sm.PlaySingle(bip.clip);
+            //sm.PlaySingle(bip.clip);
 
         if (secondes < 0)
         {
