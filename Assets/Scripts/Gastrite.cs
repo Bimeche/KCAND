@@ -220,7 +220,7 @@ public class Gastrite : MonoBehaviour {
 
                     }
                 }
-                else
+                else if (kcode.ToString().Length ==1)
                 {
                     written = written + kcode.ToString();
                 }
