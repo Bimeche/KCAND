@@ -1,0 +1,21 @@
+{
+	"Organs" : [
+		{ "name" : "Heart" },
+		{ "name" : "Stomach" }
+	],
+	"Diseases" : [
+		{
+			"Heart" : [
+				{ "name": "pills" },
+				{ "name": "siringe" }
+			]
+		},
+		{
+			"Stomach": [
+				{ "name": "button" },
+				{ "name": "letters" }
+			]
+		}
+	],
+	"Level1" : { "Organ" : "Heart", "Disease" : "pills" }
+}

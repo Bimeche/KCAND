@@ -1,0 +1,63 @@
+﻿
+using UnityEngine;
+
+public class CameraBehaviour : MonoBehaviour {
+
+    public float rate;
+    public float rate2= 0.2f;
+    public bool zoom_objet;
+    GameObject MainCamera;
+    new Camera camera;
+    Vector3 vector;
+    // Use this for initialization
+    void Start () {
+        zoom_objet = false;
+        MainCamera = GameObject.Find("Main Camera");
+        camera = MainCamera.GetComponent<Camera>();
+    }
+	
+	// Update is called once per frame
+	void Update () {
+        if (Input.GetMouseButtonDown(0))
+        {
+            var ray = camera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if(Physics.Raycast(ray, out hit, 5))
+            {
+                Debug.Log("la");
+                if (hit.collider.tag == "body")
+                {
+                    /* if(!GameObject.Find("organ1").GetComponent<BodyBehaviour>().zoom_organ || !GameObject.Find("organ2").GetComponent<BodyBehaviour>().zoom_organ)
+                     {
+                         zoom_position = !zoom_position;
+                         y_change = -y_change;
+                         z_change = -z_change;
+                         camera.transform.localPosition = new Vector3(camera.transform.localPosition.x, camera.transform.localPosition.y + y_change, camera.transform.localPosition.z + z_change);
+                     }*/
+                    Debug.Log("ici");
+                    if (!zoom_objet)
+                    {
+                        Debug.Log("prout");
+                        vector = new Vector3(camera.transform.position.x, camera.transform.position.y - rate, camera.transform.position.z + rate2);
+                        zoom_objet = !zoom_objet;
+                        rate = -rate;
+                        rate2 = -rate2;
+                        camera.transform.position = vector;
+                    }
+                    else if(GameObject.Find("OrganManager").GetComponent<BodyBehaviour>().zoom_organ==0)
+                    {
+                        Debug.Log("ici 5");
+                        vector = new Vector3(camera.transform.position.x, camera.transform.position.y-rate, camera.transform.position.z+rate2);
+                        zoom_objet = !zoom_objet;
+                        rate = -rate;
+                        rate2 = -rate2;
+                        camera.transform.position = vector;
+                    }
+                    
+
+                }
+            }
+        }
+	}
+}
