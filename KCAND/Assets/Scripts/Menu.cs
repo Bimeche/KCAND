@@ -15,10 +15,8 @@ public class Menu : MonoBehaviour {
 	void Start () {
 		mainMenu = GameObject.FindGameObjectWithTag("MainMenu");
 		mainMenu.SetActive(true);
-		
 		levelSelection = GameObject.FindGameObjectWithTag("LevelSelection");
-		levelSelection.SetActive(false);
-
+		GameObject.FindObjectOfType<NavigationBetweenScenes>().Initialisation ();
 	}
 
 	// Update is called once per frame
@@ -28,7 +26,6 @@ public class Menu : MonoBehaviour {
 
     public void ClickPlay()
     {
-		Debug.Log(mainMenu.tag);
 		mainMenu.SetActive(false);
 		levelSelection.SetActive(true);
     }

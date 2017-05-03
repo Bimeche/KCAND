@@ -248,10 +248,12 @@ public class Gastrite : MonoBehaviour {
 					if (!isCure) {
 						if (word == written) {
 							Debug.Log ("Done");
+							FindObjectOfType<InstantiateLevelObjects> ().Cured ("Gastrite");
                             achievement.Play();
                             this.HideDisease ();
 							isCure = true;
-
+							NavigationBetweenScenes end = FindObjectOfType<NavigationBetweenScenes> ();
+							end.ModuleCured ();
 						} else {
 							sceneCamera.GetComponent<strikeScript> ().nbstrike--;
 							if (sceneCamera.GetComponent<strikeScript> ().nbstrike == 0){

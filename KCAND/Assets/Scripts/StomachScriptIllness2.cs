@@ -23,17 +23,15 @@ public class StomachScriptIllness2 : MonoBehaviour {
     private AudioSource achievement;
     // Use this for initialization
     void Start () {
-		Debug.Log("INSTANTIATE BUTTON NOW");
+
         achievement = GameObject.Find("achievement").GetComponent<AudioSource>();
         rend = GetComponent<Renderer>();
-        
-    }
+        sheet = FindObjectOfType<FillSheet>();
+        sceneCamera = FindObjectOfType<Camera>();
+        timer = FindObjectOfType<Timer>().GetComponent<Text>();
+        texture = sheet.getTexture();
+        nb = sheet.getnb();
 
-	private void Awake()
-	{
-		sheet = FindObjectOfType<FillSheet>();
-		sceneCamera = FindObjectOfType<Camera>();
-		timer = FindObjectOfType<Timer>().GetComponent<Text>();
         if (sheet.getTexture() == 0)
         {
             rend.material = red_material;
@@ -42,10 +40,17 @@ public class StomachScriptIllness2 : MonoBehaviour {
         {
             rend.material = yellow_material;
         }
-
-        random_word = sheet.getWord();
-        word.text = sheet.getWordMesh();
     }
+
+	private void Awake()
+	{
+        
+    }
+
+	public void SetWord(){
+		random_word = sheet.getWord();
+		word.text = sheet.getWordMesh();
+	}
 
 	// Update is called once per frame
 	void Update()
@@ -84,8 +89,11 @@ public class StomachScriptIllness2 : MonoBehaviour {
                                     if (good_timer)
                                     {
                                         achievement.Play();
-                                        Debug.Log("Done");
                                         GameObject.FindGameObjectWithTag("button").SetActive(false);
+										FindObjectOfType<InstantiateLevelObjects> ().Cured ("Ulcère");
+										NavigationBetweenScenes end = FindObjectOfType<NavigationBetweenScenes> ();
+										end.ModuleCured ();
+									
                                        // GameObject.Find("SmallIntestine_Plane.004").SetActive(false);
                                     }
                                     else
@@ -130,8 +138,10 @@ public class StomachScriptIllness2 : MonoBehaviour {
                                     }
                                     if (good_timer)
                                     {
+										FindObjectOfType<InstantiateLevelObjects> ().Cured ("Ulcère");
+										NavigationBetweenScenes end = FindObjectOfType<NavigationBetweenScenes> ();
+										end.ModuleCured ();
                                         achievement.Play();
-                                        Debug.Log("Done");
                                         GameObject.FindGameObjectWithTag("button").SetActive(false);
                                        // GameObject.Find("SmallIntestine_Plane.004").SetActive(false);
                                     }
@@ -178,8 +188,10 @@ public class StomachScriptIllness2 : MonoBehaviour {
                                     }
                                     if (good_timer)
                                     {
+										FindObjectOfType<InstantiateLevelObjects> ().Cured ("Ulcère");
+										NavigationBetweenScenes end = FindObjectOfType<NavigationBetweenScenes> ();
+										end.ModuleCured ();
                                         achievement.Play();
-                                        Debug.Log("Done");
                                         GameObject.FindGameObjectWithTag("button").SetActive(false);
                                         //GameObject.Find("SmallIntestine_Plane.004").SetActive(false);
                                     }
@@ -215,7 +227,7 @@ public class StomachScriptIllness2 : MonoBehaviour {
                             {
                                 if (hit.collider.name.Contains("button"))
                                 {
-                                    if (GameObject.FindGameObjectWithTag("Heart") != null)
+                                    if (GameObject.Find("NavObject").GetComponent<NavigationBetweenScenes>().getNbMod() ==2)
                                     {
                                         for (int i = 0; i < timer.text.Length; i++)
                                         {
@@ -232,8 +244,10 @@ public class StomachScriptIllness2 : MonoBehaviour {
                                     }
                                     if (good_timer)
                                     {
+										FindObjectOfType<InstantiateLevelObjects> ().Cured ("Ulcère");
+										NavigationBetweenScenes end = FindObjectOfType<NavigationBetweenScenes> ();
+										end.ModuleCured ();
                                         achievement.Play();
-                                        Debug.Log("Done");
                                         GameObject.FindGameObjectWithTag("button").SetActive(false);
                                         //GameObject.Find("SmallIntestine_Plane.004").SetActive(false);
                                     }
@@ -280,8 +294,10 @@ public class StomachScriptIllness2 : MonoBehaviour {
                                     }
                                     if (good_timer)
                                     {
+										FindObjectOfType<InstantiateLevelObjects> ().Cured ("Ulcère");
+										NavigationBetweenScenes end = FindObjectOfType<NavigationBetweenScenes> ();
+										end.ModuleCured ();
                                         achievement.Play();
-                                        Debug.Log("Done");
                                         GameObject.FindGameObjectWithTag("button").SetActive(false);
                                         //GameObject.Find("SmallIntestine_Plane.004").SetActive(false);
                                     }
@@ -312,7 +328,7 @@ public class StomachScriptIllness2 : MonoBehaviour {
                             {
                                 if (hit.collider.name.Contains("button"))
                                 {
-                                    if (GameObject.FindGameObjectWithTag("Heart") != null)
+                                    if (GameObject.Find("NavObject").GetComponent<NavigationBetweenScenes>().getNbMod() == 2)
                                     {
                                         for (int i = 0; i < timer.text.Length; i++)
                                         {
@@ -329,8 +345,11 @@ public class StomachScriptIllness2 : MonoBehaviour {
                                     }
                                     if (good_timer)
                                     {
+
+										FindObjectOfType<InstantiateLevelObjects> ().Cured ("Ulcère");
+										NavigationBetweenScenes end = FindObjectOfType<NavigationBetweenScenes> ();
+										end.ModuleCured ();
                                         achievement.Play();
-                                        Debug.Log("Done");
                                         GameObject.FindGameObjectWithTag("button").SetActive(false);
                                         //GameObject.Find("SmallIntestine_Plane.004").SetActive(false);
                                     }

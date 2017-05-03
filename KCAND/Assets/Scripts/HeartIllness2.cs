@@ -17,23 +17,33 @@ public class HeartIllness2 : MonoBehaviour {
     private bool success;
     private AudioSource achievement;
     private int dose;
+	private bool isCure;
+	private List<Transform> all;
 
     void Start()
     {
-       
-        achievement = GameObject.Find("achievement").GetComponent<AudioSource>();
-        seringue.enabled = false;
-        fillingUp = false;
-        fillingDown = false;
-        success = false;
-       
     }
 
 	private void Awake()
 	{
+		achievement = GameObject.Find("achievement").GetComponent<AudioSource>();
+		//seringue.enabled = false;
+		fillingUp = false;
+		fillingDown = false;
+		success = false;
 		sheet = FindObjectOfType<FillSheet>();
 		sceneCamera = FindObjectOfType<Camera>();
-        dose = sheet.getDose();
+		isCure = false;
+		all = new List<Transform> ();
+		foreach (Transform t in  GetComponentsInParent<Transform>()) {
+			all.Add (t);
+		}
+
+		HideDisease ();
+	}
+
+	public void SetDose(){
+		dose = sheet.getDose();
 	}
 
 	// Update is called once per frame
@@ -45,11 +55,9 @@ public class HeartIllness2 : MonoBehaviour {
         {
             if (Physics.Raycast(ray, out hit, 1000))
             {
-				Debug.Log(hit.point);
-				Debug.Log(GameObject.FindGameObjectWithTag("seringue").transform.position);
+			
                 if (hit.collider.tag == "plusbutton")
                 {
-                    Debug.Log("seringue");
                     fillingUp = true;
 
 				}
@@ -60,7 +68,6 @@ public class HeartIllness2 : MonoBehaviour {
 				else if(hit.collider.tag == "inject")
                 {
                     //verifier si bonne dose
-                    Debug.Log("verify");
                     switch (dose)
                     {
                         case 6:
@@ -137,10 +144,13 @@ public class HeartIllness2 : MonoBehaviour {
                     if (success)
                     {
                         achievement.Play();
-                        Debug.Log("Done");
-                        GameObject.Find("Heart").SetActive(false);
-                        GameObject.Find("InjectButton").SetActive(false);
+						GameObject.Find("InjectButton").SetActive(false);
+						FindObjectOfType<InstantiateLevelObjects> ().Cured ("Hyperlipidémie");
                         seringue.enabled = false;
+						isCure = true;
+						HideDisease ();
+						NavigationBetweenScenes end = FindObjectOfType<NavigationBetweenScenes> ();
+						end.ModuleCured ();
                     }else
                     {
                         GameObject.Find("InjectButton").GetComponent<Renderer>().material = buttonNonAccessible;
@@ -178,4 +188,24 @@ public class HeartIllness2 : MonoBehaviour {
 
 
    }
+
+	public void DisplayDisease(){
+		if (!isCure) {
+			foreach (Transform t in  all) {
+				t.gameObject.SetActive (true);
+			}
+			seringue.gameObject.SetActive (true);
+		}
+	}
+
+	public void HideDisease(){
+		
+		foreach (Transform t in  all) {
+			t.gameObject.SetActive (false);
+		}
+		seringue.gameObject.SetActive (false);
+
+
+	}
+
 }

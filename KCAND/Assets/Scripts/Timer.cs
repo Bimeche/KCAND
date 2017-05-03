@@ -17,18 +17,19 @@ public class Timer : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+		NavigationBetweenScenes nav = GameObject.FindObjectOfType<NavigationBetweenScenes> ();
 
-        if (GameObject.Find("NavObject").GetComponent<NavigationBetweenScenes>().GetLevelName() == "Level1")
+		if (nav.GetLevelName() == "Level1")
         {
-            timeLevel = 30;
+            timeLevel = 50;
         }
-        else if (GameObject.Find("NavObject").GetComponent<NavigationBetweenScenes>().GetLevelName() == "Level2")
+		else if (nav.GetLevelName() == "Level2")
         {
-            timeLevel = 25;
+            timeLevel = 40;
         }
         else
         {
-            timeLevel = 50;
+            timeLevel = 90;
         }
 
         secondes = timeLevel;
@@ -37,6 +38,7 @@ public class Timer : MonoBehaviour {
             minutes++;
             secondes = secondes - 60;
         }
+
         secondtmp = Mathf.FloorToInt(secondes);
         if (secondes < 10)
             timedisplay.text = minutes.ToString() + " : 0" + secondes.ToString("F0");
@@ -68,11 +70,17 @@ public class Timer : MonoBehaviour {
                 }
             }else
             {
-                if(secondes < 0)
+				if((int)secondes < 0)
                 {
                     secondes = 59;
                     minutes--;
                 }
+
+				if (Mathf.CeilToInt(secondes) < 10)
+					timedisplay.text = minutes.ToString() + " : 0" + secondes.ToString("F0");
+				else
+					timedisplay.text = minutes.ToString() + " : " + secondes.ToString("F0");
+				
             }
 
         }

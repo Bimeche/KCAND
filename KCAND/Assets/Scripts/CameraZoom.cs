@@ -64,7 +64,6 @@ public class CameraZoom : MonoBehaviour
 			{
 				if (hit.collider.tag == "Heart")
 				{
-                    Debug.Log("Heart");
 					isZooming = true;
 					heart.isZoomed = true;
 					heart.DisplayDisease();
@@ -73,42 +72,45 @@ public class CameraZoom : MonoBehaviour
                 }
 				else if (hit.collider.tag == "Stomach" && whichOrganZoomed != 2)
                 {
-                    Debug.Log("Stomach");
+					stomach.SetWord ();
                     isZooming = true;
 					whichOrganZoomed = 2;
 					stomach.gameObject.SetActive(true);
 					target = GameObject.Find("ZoomPointOrgan2").transform;
+
 				}
 				else if (hit.collider.tag == "body" && whichOrganZoomed != 0)
                 {
-                    Debug.Log("body");
                     isZooming = false;
 					if (heart != null)
 						heart.HideDisease();
 					if(stomach != null)
 						stomach.gameObject.SetActive(false);
                     whichOrganZoomed = 0;
-					if(trachea != null)
-						GameObject.Find("CanvasSeringue").GetComponent<Canvas>().enabled = false;
+					if (trachea != null)
+						trachea.HideDisease ();
 					if (gastrite)
 						gastrite.HideDisease();
                 }
                 else if(hit.collider.tag == "sheet" && whichOrganZoomed != 3)
                 {
-                    Debug.Log("sheet");
                     isZooming = true;
                     whichOrganZoomed = 3;
                     target = GameObject.Find("ZoomPointSheet").transform;
                 }else if (hit.collider.tag == "trachea")
                 {
-                    Debug.Log("Trachea");
+					
+					trachea.SetDose ();
                     isZooming = true;
                     whichOrganZoomed = 4;
                     target = GameObject.Find("ZoomPointOrgan3").transform;
-                    GameObject.Find("CanvasSeringue").GetComponent<Canvas>().enabled = true;
+                   // GameObject.Find("CanvasSeringue").GetComponent<Canvas>().enabled = true;
+					trachea.DisplayDisease ();
+					trachea.DisplayDisease ();
+
+
                 }else if (hit.collider.tag == "Intestine")
 				{
-					Debug.Log("Intestine");
 					isZooming = true;
 					whichOrganZoomed = 5;
 					target = GameObject.Find("ZoomPointOrgan4").transform;

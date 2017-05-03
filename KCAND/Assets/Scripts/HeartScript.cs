@@ -89,12 +89,10 @@ public class HeartScript : MonoBehaviour {
 				if (tempPill != null && tempPill.name.Contains("BlackPill"))
 					pillsToClick.Add(tempPill);
 			}
-			Debug.Log("cas 1");
 		}
 		//else if (greenPillsCount >0 && age <= 25){
 		//	// ne cliquer sur aucune
 		//	pillsToClick.Clear();
-		//	Debug.Log("cas 2");
 		//}
 		else if(greenPillsCount == 1 && redPillsCount == 1 && blackPillsCount == 1 && pillsSpawned.Count == 3)
 		{
@@ -105,11 +103,9 @@ public class HeartScript : MonoBehaviour {
 				if (tempPill != null && tempPill.name.Contains("GreenPill"))
 					pillsToClick.Add(tempPill);
 			}
-			Debug.Log("cas 3");
 		}
 		else if (pulmonaryOedema)
 		{
-			Debug.Log("cas 4");
 			// cliquer sur la deuxième en partant de la gauche
 			if (pillsSpawned.ContainsKey(pillsSpawningList[0]))
 			{
@@ -146,7 +142,6 @@ public class HeartScript : MonoBehaviour {
 		{
 			if (breathlessness)
 			{
-				Debug.Log("cas 5");
 				// cliquer sur la plus à gauche
 				if (pillsSpawned.ContainsKey(pillsSpawningList[0]))
 				{
@@ -168,7 +163,6 @@ public class HeartScript : MonoBehaviour {
 		}
 		else if (whitePillsCount > 0)
 		{
-			Debug.Log("cas 6");
 			// cliquer sur toutes les pilules blanches
 			foreach (Transform spawn in pillsSpawningList)
 			{
@@ -179,7 +173,6 @@ public class HeartScript : MonoBehaviour {
 		}
 		else
 		{
-			Debug.Log("cas 7");
 			// cliquer sur toutes les pilules
 			foreach (Transform spawn in pillsSpawningList)
 			{
@@ -189,10 +182,6 @@ public class HeartScript : MonoBehaviour {
 			}
 		}
 
-		foreach (GameObject pill in pillsToClick)
-		{
-			Debug.Log(pill.name);
-		}
 
 		foreach (Transform spawn in pillsSpawningList)
 		{
@@ -235,10 +224,8 @@ public class HeartScript : MonoBehaviour {
 		{
 			var ray = sceneCamera.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
-			Debug.Log("test passe ici");
 			if (Physics.Raycast(ray, out hit, 1000))
 			{
-				Debug.Log("test hit what ? " + hit.collider.name);
 				if (hit.collider.name.Contains("Black"))
 				{
 					blackPillsClicked++;
@@ -248,7 +235,6 @@ public class HeartScript : MonoBehaviour {
 					}
 					else
 					{
-						Debug.Log("black errors");
 						sceneCamera.GetComponent<strikeScript> ().nbstrike--;
 						if (sceneCamera.GetComponent<strikeScript> ().nbstrike == 0){
 							NavigationBetweenScenes end = FindObjectOfType<NavigationBetweenScenes> ();
@@ -267,7 +253,6 @@ public class HeartScript : MonoBehaviour {
 					}
 					else
 					{
-						Debug.Log("red errors");
 						sceneCamera.GetComponent<strikeScript> ().nbstrike--;
 						if (sceneCamera.GetComponent<strikeScript> ().nbstrike == 0){
 							NavigationBetweenScenes end = FindObjectOfType<NavigationBetweenScenes> ();
@@ -286,7 +271,6 @@ public class HeartScript : MonoBehaviour {
 					}
 					else
 					{
-						Debug.Log("green errors");
 						sceneCamera.GetComponent<strikeScript> ().nbstrike--;
 						if (sceneCamera.GetComponent<strikeScript> ().nbstrike == 0){
 							NavigationBetweenScenes end = FindObjectOfType<NavigationBetweenScenes> ();
@@ -305,7 +289,6 @@ public class HeartScript : MonoBehaviour {
 					}
 					else
 					{
-						Debug.Log("white errors");
 						sceneCamera.GetComponent<strikeScript> ().nbstrike--;
 						if (sceneCamera.GetComponent<strikeScript> ().nbstrike == 0){
 							NavigationBetweenScenes end = FindObjectOfType<NavigationBetweenScenes> ();
@@ -320,10 +303,14 @@ public class HeartScript : MonoBehaviour {
 
 			if (pillsToClick.Count == 0)
 			{
-				Debug.Log("Heart cured");
+				Debug.Log ("Win");
 				isCure = true;
+				FindObjectOfType<InstantiateLevelObjects> ().Cured ("Valvulopathie");
                 achievement.Play();
 				GameObject.FindGameObjectWithTag("Heart").GetComponent<Renderer>().material.SetColor("_SpecColor", Color.green);
+				NavigationBetweenScenes end = FindObjectOfType<NavigationBetweenScenes> ();
+				end.ModuleCured ();
+				HideDisease ();
             }
 		}
 	}
